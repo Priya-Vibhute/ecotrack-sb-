@@ -1,5 +1,7 @@
 package com.learn.ecotrack.services.impl;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,28 @@ public class RequestServiceImpl implements RequestService {
 		Request request = requestRepository.findById(requestId)
 				.orElseThrow(()->new NotFoundException("Request not found"));
 		
+		request.setStatus(RequestStatus.REJECTED);
+		request.setReason(reason);
+		
+		Request savedRequest = requestRepository.save(request);
+		
+		return modelMapper.map(savedRequest, RequestDto.class);
+	}
+
+	@Override
+	public List<RequestDto> getAllRequests() {
+		
+		List<RequestDto> requests = requestRepository.findAll()
+		.stream()
+		.map(r->modelMapper.map(r,RequestDto.class))
+		.toList();
+		
+		return requests;
+	}
+
+	@Override
+	public List<RequestDto> getRequestsByEmail(String email) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
