@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.learn.ecotrack.dtos.RequestDto;
@@ -68,9 +69,12 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public List<RequestDto> getAllRequests() {
+	public List<RequestDto> getAllRequests(int pageNumber,int pageSize) {
 		
-		List<RequestDto> requests = requestRepository.findAll()
+		
+		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+		
+		List<RequestDto> requests = requestRepository.findAll(pageRequest)
 		.stream()
 		.map(r->modelMapper.map(r,RequestDto.class))
 		.toList();
@@ -80,8 +84,13 @@ public class RequestServiceImpl implements RequestService {
 
 	@Override
 	public List<RequestDto> getRequestsByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<RequestDto> requests = requestRepository.findByUserEmail(email)
+		.stream()
+		.map(r->modelMapper.map(r, RequestDto.class))
+		.toList();
+		
+		return requests;
 	}
 
 }

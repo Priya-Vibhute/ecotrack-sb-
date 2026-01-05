@@ -11,7 +11,7 @@ public interface RequestService {
 	RequestDto addRequest(String email,RequestDto requestDto);
 	RequestDto approveRequest(int requestId);
     RequestDto rejectRequest(int requestId,String reason);
-    List<RequestDto> getAllRequests();
+    List<RequestDto> getAllRequests(int pageNumber,int pageSize);
     List<RequestDto> getRequestsByEmail(String email);
 
 }

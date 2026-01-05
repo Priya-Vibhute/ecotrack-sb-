@@ -51,10 +51,14 @@ public class RequestController {
 		return ResponseEntity.ok(requestService.rejectRequest(id, reason));
 	}
 	
+	
+	
 	@GetMapping
-	public ResponseEntity<List<RequestDto>> requests()
+	public ResponseEntity<List<RequestDto>> requests
+	(@RequestParam(defaultValue = "0") int pageNumber,
+			@RequestParam(defaultValue = "30") int pageSize)
 	{
-		return ResponseEntity.ok(requestService.getAllRequests());
+		return ResponseEntity.ok(requestService.getAllRequests(pageNumber,pageSize));
 	}
 
 }
