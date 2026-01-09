@@ -14,7 +14,7 @@ public class WorkshopDto {
 	private Integer id;
 	private String name;
 	private String description;
-	private Integer price;
+	private Double price;
 	private Integer duration;//days
 	private String image;
 	private String venue;
