@@ -85,10 +85,13 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public List<RequestDto> getRequestsByEmail(String email) {
 		
+		userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("Email not found"));
+		
 		List<RequestDto> requests = requestRepository.findByUserEmail(email)
 		.stream()
 		.map(r->modelMapper.map(r, RequestDto.class))
 		.toList();
+		
 		
 		return requests;
 	}

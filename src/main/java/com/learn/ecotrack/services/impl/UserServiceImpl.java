@@ -2,6 +2,7 @@ package com.learn.ecotrack.services.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.learn.ecotrack.dtos.UserDto;
@@ -23,9 +24,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDto registerUser(UserDto userDto) {
+		
+		userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		User user = modelMapper.map(userDto, User.class);
 		
 		Role role = roleRepository.findByRoleName(AppRole.ROLE_USER)
