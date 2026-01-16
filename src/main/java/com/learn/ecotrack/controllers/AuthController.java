@@ -42,6 +42,8 @@ public class AuthController {
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
 		
+		System.out.println(email+" "+password);
+		
 		Authentication authenticate=null;
 		
 		try

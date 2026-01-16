@@ -6,4 +6,6 @@ public interface UserService {
 	
 	UserDto registerUser(UserDto userDto);
 
+	boolean isEmailExists(String email);
+
 }
